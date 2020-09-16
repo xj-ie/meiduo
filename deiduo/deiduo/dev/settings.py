@@ -14,8 +14,8 @@ import os, sys
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.append(os.path.join(BASE_DIR, "apps"))
-
+sys.path.insert(0,os.path.join(BASE_DIR, "apps"))
+print(sys.path)
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'register'
+    'register.apps.RegisterConfig',
+    "rest_framework"
 ]
 
 MIDDLEWARE = [
@@ -53,8 +54,21 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'deiduo.urls'
 
 TEMPLATES = [
+    # {
+    #     'BACKEND': 'django.template.backends.django.DjangoTemplates',
+    #     'DIRS': [],
+    #     'APP_DIRS': True,
+    #     'OPTIONS': {
+    #         'context_processors': [
+    #             'django.template.context_processors.debug',
+    #             'django.template.context_processors.request',
+    #             'django.contrib.auth.context_processors.auth',
+    #             'django.contrib.messages.context_processors.messages',
+    #         ],
+    #     },
+    # },
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'BACKEND': 'django.template.backends.jinja2.Jinja2',
         'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -64,22 +78,10 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+        'environment':'deiduo.utils.jinja2_env.template_environment',
         },
     },
-    {
-        'BACKEND': 'django.template.backends.jinja2.Jinja2',  # jinja2模板引擎
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-            ],
-        'environment':'deiduo.utils.tempalte_environment'
-        },
-    },
+
 ]
 
 WSGI_APPLICATION = 'deiduo.wsgi.application'
@@ -93,8 +95,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'USER': 'root',
         'PASSWORD':"mysql",
-        # 'HOST': '192.168.6.130',
-        'HOST':'127.0.0.1',
+        'HOST': '192.168.6.130',
         'PORT': 3306,
         'NAME': "deiduo",
     }
@@ -139,3 +140,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS=[os.path.join(BASE_DIR, 'static')]
+AUTH_USER_MODEL = 'register.User'
