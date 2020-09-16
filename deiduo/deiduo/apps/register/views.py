@@ -1,5 +1,5 @@
 import re
-
+import logging
 from django.contrib.auth.views import login
 from django.shortcuts import render
 from django import http
@@ -7,6 +7,8 @@ from django.views import View
 from register.models import User
 # from rest_framework.views import APIView
 # Create your views here.
+logger = logging.getLogger('django')
+
 
 class RegisterView(View):
 
@@ -35,7 +37,8 @@ class RegisterView(View):
         try:
             user = User.objects.create_user(username=username,password=password,mobile=mobile)
             login(request, user)
-        except Exception:
+        except Exception as e:
+            logger.error(e)
             return http.HttpResponseForbidden('注册失败')
 
         return render(request, 'index.html')
