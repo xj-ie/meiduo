@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="2945af1c-ebae-4dba-89d1-65910b3e95f3" name="meiduo_begin">
+        <fileTransfer accessType="SFTP" host="192.168.6.130" port="22" sshConfigId="390efa36-9576-483e-b332-f73fa7136fb7" sshConfig="python@192.168.6.130:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
